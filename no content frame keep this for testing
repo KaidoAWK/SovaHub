@@ -1,3 +1,4 @@
+
 -- Create ScreenGui
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "StylishGUI"
@@ -53,11 +54,15 @@ local function createTabButton(name, position)
     button.BackgroundColor3 = Color3.fromRGB(95, 207, 75) -- green color
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
     button.Text = name
+    button.Font = Enum.Font.GothamBold
+    button.TextSize = 18 -- Adjust font size as needed
     button.BorderSizePixel = 0
     applyUICorner(button, 0)
     button.Parent = tabFrame
     return button
 end
+
+
     
 -- Create Tab Buttons and Connect Click Events
 for i, tabName in ipairs(tabs) do
