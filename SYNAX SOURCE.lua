@@ -40,18 +40,6 @@ logo.TextSize = 24
 logo.BorderSizePixel = 0
 logo.Parent = tabFrame
 
--- Create UI Corner for rounded edges
-local function applyUICorner(instance, radius)
-    local uiCorner = Instance.new("UICorner")
-    uiCorner.CornerRadius = UDim.new(0, radius)
-    uiCorner.Parent = instance
-end
-
-applyUICorner(mainFrame, 0)
-applyUICorner(tabFrame, 0)
-applyUICorner(contentFrame, -0)
-applyUICorner(logo, 0)
-
 -- Tabs and Button Creation
 local tabs = {"Tab1", "Tab2", "Tab3"}
 
@@ -59,11 +47,10 @@ local function createTabButton(name, position)
     local button = Instance.new("TextButton")
     button.Size = UDim2.new(1, 0, 0, 50)
     button.Position = UDim2.new(0, 0, 0, position)
-    button.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+    button.BackgroundColor3 = Color3.fromRGB(95, 207, 75) -- Green color
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
     button.Text = name
     button.BorderSizePixel = 0
-    applyUICorner(button, 0)
     button.Parent = tabFrame
     return button
 end
@@ -79,9 +66,8 @@ local function createContentForTab(tabName)
     label.Position = UDim2.new(0, 0, 0, 0)
     label.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
     label.TextColor3 = Color3.fromRGB(255, 255, 255)
-    label.Text = "Content for " .. tabName
+    label.Text = "" .. tabName
     label.BorderSizePixel = 0
-    applyUICorner(label, 0)
     label.Parent = contentFrame
 end
 
