@@ -53,17 +53,19 @@ applyUICorner(contentFrame, 10)
 applyUICorner(logo, 10)
 
 -- Tabs and Button Creation
-local tabs = {"Tab1", "Tab2", "Tab3"}
+local tabs = {"General Utility", "Prison life", "Da hood", "ChicBlocko"}
+
+local buttonColor = Color3.fromRGB(95, 207, 75) -- Button color
 
 local function createTabButton(name, position)
     local button = Instance.new("TextButton")
-    button.Size = UDim2.new(1, 0, 0, 50)
+    button.Size = UDim2.new(1, 1, 0, 50)
     button.Position = UDim2.new(0, 0, 0, position)
-    button.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+    button.BackgroundColor3 = buttonColor -- Set background color
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
     button.Text = name
     button.BorderSizePixel = 0
-    applyUICorner(button, 10)
+    applyUICorner(button, 5)
     button.Parent = tabFrame
     return button
 end
@@ -77,7 +79,7 @@ local function createContentForTab(tabName)
     local label = Instance.new("TextLabel")
     label.Size = UDim2.new(1, 0, 0, 50)
     label.Position = UDim2.new(0, 0, 0, 10)
-    label.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+    label.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
     label.TextColor3 = Color3.fromRGB(255, 255, 255)
     label.Text = "Content for " .. tabName
     label.BorderSizePixel = 0
@@ -95,3 +97,4 @@ end
 
 -- Initialize with first tab content
 createContentForTab(tabs[1])
+    
