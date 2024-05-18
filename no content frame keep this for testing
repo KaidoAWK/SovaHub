@@ -67,5 +67,17 @@ for i, tabName in ipairs(tabs) do
     end)
 end
 
--- Initialize with first tab content
-createContentForTab(tabs[1])
+-- Function to toggle GUI visibility
+local function toggleGUIVisibility()
+    screenGui.Enabled = not screenGui.Enabled
+end
+
+-- Function to handle key press event
+local function onKeyPress(input)
+    if input.KeyCode == Enum.KeyCode.RightShift then
+        toggleGUIVisibility()
+    end
+end
+
+-- Connect key press event
+game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
