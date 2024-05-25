@@ -24,6 +24,7 @@ local EspEnabled = false
 local AntiAFKEnabled = false
 local InfiniteJumpEnabled = false
 local LastInput = tick()
+local FlyLoop -- Variable to store the connection for flight
 
 -- Reset character button
 local Button = Section:CreateButton('Reset Humanoid', function()
@@ -96,6 +97,8 @@ end
 RunService.RenderStepped:Connect(function()
     if EspEnabled then
         updateEsp()
+    else
+        clearEsp()
     end
     if AntiAFKEnabled then
         if tick() - LastInput >= 60 then -- If no input for 60 seconds
@@ -118,3 +121,42 @@ UserInputService.JumpRequest:Connect(function()
         LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):ChangeState("Jumping")
     end
 end)
+
+local FlightToggle = Section:CreateToggle('Flight', false, Color3.fromRGB(191, 64, 191), 0.25, function(parameter)
+    local FlySpeed = 50 -- Set your desired flight speed here
+    local player = game.Players.LocalPlayer
+    
+    if parameter then
+        FlyLoop = RunService.Stepped:Connect(function()
+            pcall(function()
+                local velocity = Vector3.new(0, 1, 0)
+
+                if UserInputService:IsKeyDown(Enum.KeyCode.W) then
+                    velocity = velocity + (workspace.CurrentCamera.CFrame.LookVector * FlySpeed)
+                end
+                if UserInputService:IsKeyDown(Enum.KeyCode.A) then
+                    velocity = velocity + (workspace.CurrentCamera.CFrame.RightVector * -FlySpeed)
+                end
+                if UserInputService:IsKeyDown(Enum.KeyCode.S) then
+                    velocity = velocity + (workspace.CurrentCamera.CFrame.LookVector * -FlySpeed)
+                end
+                if UserInputService:IsKeyDown(Enum.KeyCode.D) then
+                    velocity = velocity + (workspace.CurrentCamera.CFrame.RightVector * FlySpeed)
+                end
+
+                player.Character.HumanoidRootPart.Velocity = velocity
+                player.Character.Humanoid:ChangeState("Freefall")
+            end)
+        end)
+    else
+        if FlyLoop then
+            FlyLoop:Disconnect()
+            FlyLoop = nil
+        end
+        player.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
+        player.Character.Humanoid:ChangeState("GettingUp")
+    end
+end)
+
+local Tab = Window:CreateTab('Da Hood', true, 'rbxassetid://15996635406', Vector2.new(0, 0), Vector2.new(512, 512))
+
